@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * REST controller for managing {@link com.mycompany.myapp.domain.BaseStation}.
@@ -44,6 +45,7 @@ public class BaseStationResource {
         if (baseStation.getId() != null) {
             throw new BadRequestAlertException("A new baseStation cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        baseStation.setId(UUID.randomUUID().toString());
         BaseStation result = baseStationRepository.save(baseStation);
         return ResponseEntity
             .created(new URI("/api/base-stations/" + result.getId()))

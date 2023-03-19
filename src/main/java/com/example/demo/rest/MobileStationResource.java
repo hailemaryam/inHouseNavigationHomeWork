@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * REST controller for managing {@link com.mycompany.myapp.domain.MobileStation}.
@@ -44,6 +45,7 @@ public class MobileStationResource {
         if (mobileStation.getId() != null) {
             throw new BadRequestAlertException("A new mobileStation cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        mobileStation.setId(UUID.randomUUID().toString());
         MobileStation result = mobileStationRepository.save(mobileStation);
         return ResponseEntity
             .created(new URI("/api/mobile-stations/" + result.getId()))
